@@ -1,0 +1,66 @@
+html,
+body,
+#viewDiv {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.panel-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.panel-side {
+  padding: 2px;
+  box-sizing: border-box;
+  width: 300px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: orange;
+  background-color: transparent;
+  overflow: auto;
+  z-index: 60;
+}
+
+.panel-side h2 {
+  padding: 0 20px;
+  margin: 20px 0;
+  color: yellowgreen
+}
+
+.panel-side ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.panel-side li {
+  padding: 5px 20px;
+}
+
+.panel-result {
+  cursor: pointer;
+  margin: 2px 0;
+  background-color: transparent;
+}
+
+.panel-result:hover,
+.panel-result:focus {
+  color: yellowgreen;
+  background-color: transparent;
+}
+
+#optionsDiv {
+  position: absolute;
+  top: 2px;
+  left: 50px;
+  width: 300px;
+  padding: 0 12px 0 12px;
+  background-color: transparent;
+  color: yellowgreen;
+}
