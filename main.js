@@ -21,10 +21,12 @@ require([
   ScaleBar,
   BasemapToggle
 ) {
+// New map instance	
   var map = new Map({
     basemap: "dark-gray"
   });
 
+// Instantiate MapView
   var view = new MapView({
     container: "viewDiv",
     map: map,
@@ -98,7 +100,7 @@ require([
 
   var listNode = document.getElementById("list_cities");
 
-  //get the feature layers from the server
+  // Grab city feature layer from the server
   var cities = new FeatureLayer({
     url:
       "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0",
@@ -119,7 +121,8 @@ require([
     type: "simple", // autocasts as new SimpleRenderer()
     symbol: defaultContinent
   };
-
+	
+  // Grab continent feature layer from the server
   var continents = new FeatureLayer({
     url:
       "http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/1",
@@ -148,8 +151,10 @@ require([
     }
   });
 
+  // Add graphics layer to hold selected results
   var resultsLayer = new GraphicsLayer();
 
+  // Add layers to map
   map.addMany([cities, continents, resultsLayer]);
 
   // add function to contain query codeblocks
@@ -176,7 +181,7 @@ require([
         .then(locateCities);
     });
 
-    //write the queries for the city layer
+    // Queries for the city layer
     function locateCities(chosenContinent) {
       var cityQuery = new Query({
         spatialRelationship: "intersects",
@@ -202,7 +207,6 @@ require([
     function displayResults(results) {
       var fragment = document.createDocumentFragment();
 
-      // temp style assigned until I figure out how to get renderer to stick
       results.features.forEach(function(cityname, index) {
         cityname.symbol = new SimpleMarkerSymbol({
           style: "square",
@@ -216,7 +220,7 @@ require([
 
         var name = attributes.CITY_NAME;
 
-        // list cities from the queried layer
+        // List cities from the queried layer
         var li = document.createElement("li");
         li.classList.add("panel-result");
         li.tabIndex = 0;
@@ -235,7 +239,7 @@ require([
     // Listen for clicks on panel city list
     listNode.addEventListener("click", onListClickHandler);
 
-    // tell app what to do on click
+    // On click instructions
     function onListClickHandler(event) {
       var target = event.target;
       var resultId = target.getAttribute("data-result-id");
@@ -256,6 +260,7 @@ require([
     .getElementById("Selection")
     .addEventListener("change", continentSelect);
 
+  // Add basemap options
   var toggle = new BasemapToggle({
     view: view,
     nextBasemap: "satellite"
@@ -263,6 +268,7 @@ require([
 
   view.ui.add(toggle, "bottom-left");
 
+  // Add scalebar
   var scaleBar = new ScaleBar({
     view: view,
     unit: "dual"
